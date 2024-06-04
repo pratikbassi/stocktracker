@@ -2,26 +2,25 @@ import requests
 import os
 import sqlite3
 import datetime
+from dateutil.relativedelta import relativedelta
 from dotenv import load_dotenv
 import database
 
 def get_data(ticker):
   load_dotenv()
   API_KEY = os.getenv('API_KEY_POLYGON')
-  intraday = requests.get(f'https://api.polygon.io/v2/aggs/ticker/VOO/range/1/day/2000-01-01/{datetime.today().strftime('%Y-%m-%d')}?adjusted=true&sort=asc&limit=50000&apiKey={API_KEY}').json()
+  start_date = (datetime.datetime.now() - relativedelta(years=2)).strftime('%Y-%m-%d')
+  intraday = requests.get(f'https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&apiKey=K6TFcVCi1pOosY6zM__lgQD11rWsT0uV').json()
   return intraday
-
-
-
 
 
 
 #convert the json data to a list
 def json_to_list(json):
   symbol = json['ticker']
-  data = json['res']
+  data = json['results']
   data_list = []
-  for date in data:
+  for tick in data:
     fixedDate = datetime.datetime.strptime(date, '%Y-%m-%d').date()
     data_list.append([symbol, 
                       fixedDate, 

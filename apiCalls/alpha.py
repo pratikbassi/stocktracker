@@ -18,9 +18,8 @@ def json_to_list(json):
   data = json['Time Series (Daily)']
   data_list = []
   for date in data:
-    fixedDate = datetime.datetime.strptime(date, '%Y-%m-%d').date()
     data_list.append([symbol, 
-                      fixedDate, 
+                      date, 
                       float(data[date]['1. open']), 
                       float(data[date]['2. high']), 
                       float(data[date]['3. low']), 

@@ -4,7 +4,7 @@ import sqlite3
 def create_database():
   conn = sqlite3.connect('historical.db')
   c = conn.cursor()
-  c.execute('''CREATE TABLE IF NOT EXISTS stock_data (symbol text, date datetime, open real, high real, low real, close real, volume integer)''')
+  c.execute('''CREATE TABLE IF NOT EXISTS stock_data (symbol text, date text, open text, high text, low text, close text, volume text)''')
   conn.commit()
   conn.close()
   return
